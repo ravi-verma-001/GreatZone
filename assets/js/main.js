@@ -209,6 +209,14 @@ function renderProducts(filter = 'all') {
             <span class="original-price">${formatINR(item.originalPrice)}</span>
             <span class="discount-perc">${item.discount}</span>
           </div>
+          <div class="mobile-card-actions">
+            <button class="btn-mobile-buy" onclick="addToCart(${item.id})">
+              <i class="fas fa-shopping-bag"></i> Add
+            </button>
+            <button class="btn-mobile-view" onclick="openQuickView(${item.id})" title="Quick View">
+              <i class="far fa-eye"></i> View
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -293,12 +301,14 @@ function saveCart() {
 function updateCartUI() {
   const cartBody = document.getElementById('cartItemsList');
   const cartBadge = document.getElementById('cartBadgeCount');
+  const bottomCartBadge = document.getElementById('bottomCartBadge');
   const subtotalEl = document.getElementById('cartSubtotalAmount');
   const shippingBar = document.getElementById('freeShippingBar');
   const shippingMsg = document.getElementById('shippingProgressText');
 
   const totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
   if (cartBadge) cartBadge.textContent = totalCount;
+  if (bottomCartBadge) bottomCartBadge.textContent = totalCount;
 
   if (!cartBody) return;
 
@@ -510,8 +520,12 @@ function toggleWishlist(productId) {
 
 function updateWishlistUI() {
   const wishlistBadge = document.getElementById('wishlistBadgeCount');
+  const bottomWishlistBadge = document.getElementById('bottomWishlistBadge');
   if (wishlistBadge) {
     wishlistBadge.textContent = wishlist.length;
+  }
+  if (bottomWishlistBadge) {
+    bottomWishlistBadge.textContent = wishlist.length;
   }
 }
 
